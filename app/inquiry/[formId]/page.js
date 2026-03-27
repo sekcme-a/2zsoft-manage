@@ -1,6 +1,6 @@
 "use client";
 
-import InquiryForm from "@/app/[companyId]/inquiries/components/InquiryForm";
+import InquiryForm from "@/app/[groupId]/(authenticated)/[companyId]/inquiries/components/InquiryForm";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
 

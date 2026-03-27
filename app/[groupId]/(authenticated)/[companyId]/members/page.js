@@ -118,8 +118,13 @@ export default function MemberManagement({ params }) {
         <h1 className="text-[34px] font-bold tracking-tight">
           멤버 및 권한 설정
         </h1>
-        <p className="text-[#86868b] mt-2 text-lg font-medium">
-          관리자 그룹의 권한을 정교하게 제어합니다.
+        <p className="text-gray-800 mt-2 text-lg font-medium">
+          관리자 그룹의 권한을 제어합니다.
+        </p>
+        <p className=" text-xs">
+          {`*일반 관리자는 문의/게시판 추가 및 삭제가 불가능합니다.(게시물 등록 및 삭제는 가능합니다.)`}
+          <br />
+          *일반 관리자는 멤버 관리 기능에 권한이 없습니다.
         </p>
       </motion.div>
 

@@ -205,7 +205,7 @@ export default function BoardManagement({ params }) {
         </form>
         <p className="mt-3 text-xs -mb-0.5 text-gray-800">
           *새로 만든 게시판은 우선 관리자 페이지에서만 확인하실 수 있어요. 본
-          사이트에도 게시판이 보이게 설정하려면 관리자에게 문의해주세요.
+          사이트에도 게시판이 보이게 설정하려면 문의해주세요.
         </p>
       </section>
 

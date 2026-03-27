@@ -72,7 +72,7 @@ export default function InquiryHub() {
           </p>
           <p className="mt-3 text-xs -mb-0.5 text-gray-800">
             *새로 만든 문의는 우선 관리자 페이지에서만 확인하실 수 있어요. 본
-            사이트에도 문의가 보이게 설정하려면 관리자에게 문의해주세요.
+            사이트에도 문의가 보이게 설정하려면 문의해주세요.
           </p>
         </motion.div>
 

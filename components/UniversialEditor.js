@@ -23,6 +23,8 @@ import {
   Undo,
   Redo,
   Video,
+  Link as LinkIcon, // 💡 링크 아이콘 추가
+  Unlink, // 💡 링크 해제 아이콘 추가
 } from "lucide-react";
 
 // 💡 글자 크기(pt) 커스텀 확장 (기존 코드 유지)
@@ -94,7 +96,13 @@ export default function UniversalEditor({
       ResizeImage.configure({
         allowBase64: true, // 로컬 업로드 미리보기를 위해 허용
       }),
-      Link.configure({ openOnClick: false }),
+      Link.configure({
+        openOnClick: false,
+        linkOnPaste: true,
+        HTMLAttributes: {
+          class: "text-blue-600 underline cursor-pointer", // 에디터 내 링크 스타일
+        },
+      }),
       Youtube.configure({ width: 640, height: 360 }),
     ],
     content: initialContent,
@@ -114,6 +122,19 @@ export default function UniversalEditor({
     setCurrentFont(font);
     const size = editor.getAttributes("textStyle").fontSize || "12pt";
     setCurrentSize(size);
+  };
+
+  // 💡 링크 삽입 함수 추가
+  const setLink = () => {
+    const previousUrl = editor.getAttributes("link").href;
+    const url = window.prompt("연결할 URL을 입력하세요", previousUrl);
+
+    if (url === null) return;
+    if (url === "") {
+      editor.chain().focus().extendMarkRange("link").unsetLink().run();
+      return;
+    }
+    editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
   };
 
   const extractImageUrls = (html) => {
@@ -198,7 +219,7 @@ export default function UniversalEditor({
 
   return (
     <div className="w-full border border-gray-200 rounded-[2.5rem] bg-white overflow-hidden shadow-sm">
-      {/* --- 툴바 섹션 (기존 기능 100% 유지) --- */}
+      {/* --- 툴바 섹션 --- */}
       <div className="flex flex-wrap items-center gap-1 p-3 border-b border-gray-100 bg-gray-50/50">
         <button
           onClick={() => editor.chain().focus().undo().run()}
@@ -279,6 +300,24 @@ export default function UniversalEditor({
 
         <div className="w-px h-6 bg-gray-300 mx-1" />
 
+        {/* 💡 링크 추가/해제 버튼 섹션 */}
+        <button
+          onClick={setLink}
+          className={`p-2 rounded-lg ${editor.isActive("link") ? "bg-blue-600 text-white" : "hover:bg-gray-200"}`}
+        >
+          <LinkIcon className="w-4 h-4" />
+        </button>
+        {editor.isActive("link") && (
+          <button
+            onClick={() => editor.chain().focus().unsetLink().run()}
+            className="p-2 hover:bg-red-100 text-red-600 rounded-lg"
+          >
+            <Unlink className="w-4 h-4" />
+          </button>
+        )}
+
+        <div className="w-px h-6 bg-gray-300 mx-1" />
+
         <button
           onClick={() => {
             const url = prompt("YouTube URL");
@@ -324,7 +363,7 @@ export default function UniversalEditor({
         <EditorContent editor={editor} />
       </div>
 
-      {/* --- 💡 스타일 섹션 (리사이징 핸들러 스타일 추가) --- */}
+      {/* --- 스타일 섹션 --- */}
       <style jsx global>{`
         .prose ul {
           list-style-type: disc !important;
@@ -351,15 +390,19 @@ export default function UniversalEditor({
           cursor: pointer;
         }
 
-        /* 이미지가 선택되었을 때 조절 핸들이 보이도록 설정 */
         .prose img.ProseMirror-selectednode {
           outline: 3px solid #000;
         }
 
-        /* 조절 핸들이 너무 커지지 않게 조정 */
         .prose .resizer {
           display: inline-block;
           line-height: 0;
+        }
+
+        /* 💡 링크 스타일 추가 */
+        .prose a {
+          color: #2563eb !important;
+          text-decoration: underline !important;
         }
       `}</style>
     </div>

@@ -315,7 +315,7 @@ export default function BoardPostList() {
 
       <footer className="mt-24 text-center">
         <p className="text-[11px] font-bold text-[#d2d2d7] uppercase tracking-[0.2em]">
-          Board Management System Standard
+          2ZSoft Admin System
         </p>
       </footer>
     </div>
