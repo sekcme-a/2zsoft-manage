@@ -24,7 +24,7 @@ export default function SimpleRedirectPage() {
 
         <div className="flex flex-col items-center gap-6">
           <p className="group flex items-center gap-1 text-[19px] md:text-[21px] font-medium text-[#0066cc] hover:underline transition-all">
-            2zsoft.com/홈페이지ID/login
+            2zsoft.vercel.app/홈페이지ID/login
             <ChevronRight className="w-5 h-5 mt-0.5 group-hover:translate-x-1 transition-transform" />
           </p>
 

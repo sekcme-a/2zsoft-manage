@@ -28,7 +28,7 @@ export default function DashboardIndex() {
 
       // 병렬 요청으로 성능 최적화 (Promise.all)
       const [companiesRes, rolesRes] = await Promise.all([
-        supabase.from("companies").select("*"),
+        supabase.from("companies").select("*").eq("group_id", groupId),
         supabase.from("company_roles").select("*").eq("user_id", user.id),
       ]);
 

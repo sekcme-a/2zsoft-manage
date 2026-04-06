@@ -64,12 +64,20 @@ export default function MemberManagement({ params }) {
     fetchMembers();
   }, [companyId]);
 
-  // 권한 업데이트 (승격/강등)
-  const updateRole = async (roleId, newRole, targetEmail) => {
-    const isDemoting = newRole === "admin";
-    const confirmMsg = isDemoting
-      ? `[경고] ${targetEmail} 님을 일반 관리자로 강등하시겠습니까?`
-      : `${targetEmail} 님을 최고 관리자로 승격하시겠습니까?`;
+  // 권한 업데이트 (승격/강등/승인)
+  const updateRole = async (roleId, newRole, targetEmail, currentRole) => {
+    let confirmMsg = "";
+
+    if (currentRole === "pending") {
+      // 1. 승인 요청인 경우
+      confirmMsg = `${targetEmail} 님의 관리자 가입 요청을 승인하시겠습니까?`;
+    } else {
+      // 2. 기존 멤버의 권한 변경인 경우
+      const isDemoting = newRole === "admin";
+      confirmMsg = isDemoting
+        ? `[경고] ${targetEmail} 님을 일반 관리자로 강등하시겠습니까?`
+        : `${targetEmail} 님을 최고 관리자로 승격하시겠습니까?`;
+    }
 
     if (!confirm(confirmMsg)) return;
 
@@ -81,7 +89,6 @@ export default function MemberManagement({ params }) {
     if (error) alert("권한 변경에 실패했습니다.");
     fetchMembers();
   };
-
   // 멤버 제거
   const deleteRole = async (roleId, targetEmail) => {
     if (!confirm(`${targetEmail} 님의 모든 관리 권한을 제거하시겠습니까?`))
@@ -161,7 +168,12 @@ export default function MemberManagement({ params }) {
                   <div className="flex gap-2">
                     <button
                       onClick={() =>
-                        updateRole(member.id, "admin", member.profiles?.email)
+                        updateRole(
+                          member.id,
+                          "admin",
+                          member.profiles?.email,
+                          member.role,
+                        )
                       }
                       className="px-6 py-2.5 bg-black text-white text-[14px] font-bold rounded-full hover:bg-gray-800 transition-all"
                     >

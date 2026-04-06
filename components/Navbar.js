@@ -112,6 +112,11 @@ export default function Navbar() {
       icon: Users,
       // superAdminOnly: true,
     },
+    {
+      name: "팝업 관리",
+      href: `/${groupId}/${companyId}/popups`,
+      icon: Building,
+    },
   ];
 
   const filteredItems = navItems.filter(

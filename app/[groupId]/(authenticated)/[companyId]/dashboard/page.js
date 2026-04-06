@@ -25,7 +25,8 @@ export default function DashboardOverview() {
     // 1. 게시글 총 개수
     const { count: postCount } = await supabase
       .from("posts")
-      .select("*", { count: "exact", head: true });
+      .select("*, boards!inner(*)", { count: "exact", head: true })
+      .eq("boards.company_id", companyId);
 
     // 2. 미확인 문의 개수 (is_read: false)
     const { count: unreadInquiries } = await supabase
@@ -104,7 +105,7 @@ export default function DashboardOverview() {
             label: "전체 게시글",
             value: stats.posts,
             icon: FileText,
-            trend: "+12%",
+            // trend: "+12%",
           },
           {
             label: "읽지 않은 문의",

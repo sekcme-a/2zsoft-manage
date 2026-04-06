@@ -62,7 +62,9 @@ export default function LoginPage() {
 
       if (error) alert(getKoreanErrorMessage(error));
       else {
-        alert("회원가입 신청이 완료되었습니다. 이메일 인증을 확인해주세요.");
+        alert(
+          "회원가입 신청이 완료되었습니다! 입력하신 이메일 주소로 인증 메일을 보내드렸습니다. 메일함의 [이메일 인증 완료하기] 버튼을 클릭하시면 가입이 최종 완료됩니다.",
+        );
         setMode("login");
       }
     }
