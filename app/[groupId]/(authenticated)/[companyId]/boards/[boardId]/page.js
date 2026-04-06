@@ -219,9 +219,9 @@ export default function BoardPostList() {
                 <th className="px-8 py-5 text-[13px] font-bold text-[#86868b] uppercase tracking-widest hidden sm:table-cell">
                   작성일
                 </th>
-                <th className="px-8 py-5 text-[13px] font-bold text-[#86868b] uppercase tracking-widest text-right">
+                {/* <th className="px-8 py-5 text-[13px] font-bold text-[#86868b] uppercase tracking-widest text-right">
                   관리
-                </th>
+                </th> */}
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
@@ -260,14 +260,14 @@ export default function BoardPostList() {
                     <td className="px-8 py-6 hidden sm:table-cell text-[15px] font-medium text-[#86868b]">
                       {new Date(post.created_at).toLocaleDateString()}
                     </td>
-                    <td className="px-8 py-6 text-right">
+                    {/* <td className="px-8 py-6 text-right">
                       <button
                         onClick={(e) => handleDeletePost(e, post.id)}
                         className="p-2.5 text-gray-200 cursor-pointer hover:text-red-500 hover:bg-red-50 rounded-xl transition-all opacity-0 group-hover:opacity-100"
                       >
                         <Trash2 className="w-5 h-5" />
                       </button>
-                    </td>
+                    </td> */}
                   </motion.tr>
                 );
               })}
