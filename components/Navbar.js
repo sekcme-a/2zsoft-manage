@@ -174,9 +174,9 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-4">
-          {profile && (
+          {profile && !pathname.includes("hallway") && (
             <Link
-              href={`/${groupId}/settings/profile`}
+              href={`/${groupId}/${companyId}/settings/profile`}
               className="hidden sm:block text-right mr-2 group cursor-pointer"
             >
               <p className="text-[10px] text-gray-400 font-bold uppercase tracking-tighter group-hover:text-black transition-colors">
